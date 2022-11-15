@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("hossz").addEventListener('click', async () => {
         hossz()
     })
+    document.getElementById("the").addEventListener('click', async () => {
+        the()
+    })
 })
 
 async function all(){
@@ -29,34 +32,24 @@ async function all(){
     }
 }
 
-// async function the(){
-//     let response = await fetch('quotes.json')
-//     let result = await response.json()
+async function the(){
+    let response = await fetch('quotes.json')
+    let result = await response.json()
 
-//     for (let p of result.quotes) {
-//         thelist.push(p.quote)
+    for(let e of result.quotes){
+        let line = e.quote;
+        line = line.replaceAll('The ' , '<b>The </b>')
+        line = line.replaceAll(' the ' , '<b> the </b>')
+        thelist.push(line)
+    }
 
-//         // thelist.textContent = ''
-
-//         // if(thelist.filter(word => word.length > 6)){
-
-//         // }
-//         // let li = document.createElement('li')
-//         // li.textContent = p.quote
-//         // document.getElementById("thelist").appendChild(li)
-//     }
-
-//     let wordArray = thelist.split(' ')
-//     let word = "the"
-
-//     for (let i of wordArray) {
-//         thelist.textContent = ''
-//         if(wordArray.filter(sw => word.includes(sw.toLowerCase()))){
-//             //HOGY?????????????
-//         }
-
-//     }
-// }
+    let quotelist = document.getElementById('thelist')
+    for (let l of thelist){
+        let li = document.createElement('li')
+        li.innerHTML = l
+        quotelist.appendChild(li)
+    }
+}
 
 async function hossz(){
     let response = await fetch('quotes.json')
