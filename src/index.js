@@ -2,6 +2,7 @@ import './style.css';
 let qlist = []
 let thelist = []
 let hosszlist = []
+let authorlist = []
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("all").addEventListener('click', async () => {
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     document.getElementById("the").addEventListener('click', async () => {
         the()
+    })
+    document.getElementById("dbutton").addEventListener('click', async () => {
+        let input = document.getElementById("userauthor").value
+        darabszam(input)
     })
 })
 
@@ -66,6 +71,16 @@ async function hossz(){
     let szamlist = []
     szamlist.push(lengthlist.join(','))
     document.getElementById("length").append(szamlist)
+}
+
+async function darabszam(szerzo){
+    document.getElementById('authornumber').readOnly = true;
+    let response = await fetch('quotes.json')
+    let result = await response.json()
+
+    let number = result.quotes.filter((q) => q.author.toLowerCase() === szerzo.toLowerCase())
+    
+    document.getElementById("authornumber").value = number.length
 }
 
 
